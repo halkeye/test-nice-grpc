@@ -133,6 +133,14 @@ export const ExampleServiceDefinition = {
       responseStream: false,
       options: {},
     },
+    exampleUnaryMethod2: {
+      name: "ExampleUnaryMethod2",
+      requestType: ExampleRequest,
+      requestStream: false,
+      responseType: ExampleResponse,
+      responseStream: false,
+      options: {},
+    },
   },
 } as const;
 
@@ -141,10 +149,18 @@ export interface ExampleServiceImplementation<CallContextExt = {}> {
     request: ExampleRequest,
     context: CallContext & CallContextExt,
   ): Promise<DeepPartial<ExampleResponse>>;
+  exampleUnaryMethod2(
+    request: ExampleRequest,
+    context: CallContext & CallContextExt,
+  ): Promise<DeepPartial<ExampleResponse>>;
 }
 
 export interface ExampleServiceClient<CallOptionsExt = {}> {
   exampleUnaryMethod(
+    request: DeepPartial<ExampleRequest>,
+    options?: CallOptions & CallOptionsExt,
+  ): Promise<ExampleResponse>;
+  exampleUnaryMethod2(
     request: DeepPartial<ExampleRequest>,
     options?: CallOptions & CallOptionsExt,
   ): Promise<ExampleResponse>;

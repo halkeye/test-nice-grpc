@@ -4,6 +4,7 @@ package nice_grpc.example;
 
 service ExampleService {
   rpc ExampleUnaryMethod(ExampleRequest) returns (ExampleResponse) {};
+  rpc ExampleUnaryMethod2(ExampleRequest) returns (ExampleResponse) {};
 }
 
 message ExampleRequest {
