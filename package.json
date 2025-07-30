@@ -1,0 +1,29 @@
+{
+  "name": "test-nice-grpc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest main.test.ts",
+    "proto": "grpc_tools_node_protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./compiled_proto --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false --proto_path=./proto ./proto/example.proto"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "long": "^5.3.2",
+    "nice-grpc": "^2.1.12",
+    "protobufjs": "^7.5.3"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
+    "@jest/globals": "^30.0.5",
+    "grpc-tools": "^1.13.0",
+    "jest": "^30.0.5",
+    "nock": "^14.0.7",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "ts-proto": "^2.7.5",
+    "typescript": "^5.8.3"
+  }
+}

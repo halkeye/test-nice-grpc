@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package nice_grpc.example;
+
+service ExampleService {
+  rpc ExampleUnaryMethod(ExampleRequest) returns (ExampleResponse) {};
+}
+
+message ExampleRequest {
+  // ...
+}
+message ExampleResponse {
+  // ...
+}
