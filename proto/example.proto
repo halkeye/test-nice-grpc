@@ -10,5 +10,6 @@ message ExampleRequest {
   // ...
 }
 message ExampleResponse {
+  string example_field = 1;
   // ...
 }

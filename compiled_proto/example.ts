@@ -14,8 +14,9 @@ export const protobufPackage = "nice_grpc.example";
 export interface ExampleRequest {
 }
 
-/** ... */
 export interface ExampleResponse {
+  /** ... */
+  exampleField: string;
 }
 
 function createBaseExampleRequest(): ExampleRequest {
@@ -62,11 +63,14 @@ export const ExampleRequest: MessageFns<ExampleRequest> = {
 };
 
 function createBaseExampleResponse(): ExampleResponse {
-  return {};
+  return { exampleField: "" };
 }
 
 export const ExampleResponse: MessageFns<ExampleResponse> = {
-  encode(_: ExampleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+  encode(message: ExampleResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.exampleField !== "") {
+      writer.uint32(10).string(message.exampleField);
+    }
     return writer;
   },
 
@@ -77,6 +81,14 @@ export const ExampleResponse: MessageFns<ExampleResponse> = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.exampleField = reader.string();
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -86,20 +98,24 @@ export const ExampleResponse: MessageFns<ExampleResponse> = {
     return message;
   },
 
-  fromJSON(_: any): ExampleResponse {
-    return {};
+  fromJSON(object: any): ExampleResponse {
+    return { exampleField: isSet(object.exampleField) ? globalThis.String(object.exampleField) : "" };
   },
 
-  toJSON(_: ExampleResponse): unknown {
+  toJSON(message: ExampleResponse): unknown {
     const obj: any = {};
+    if (message.exampleField !== "") {
+      obj.exampleField = message.exampleField;
+    }
     return obj;
   },
 
   create(base?: DeepPartial<ExampleResponse>): ExampleResponse {
     return ExampleResponse.fromPartial(base ?? {});
   },
-  fromPartial(_: DeepPartial<ExampleResponse>): ExampleResponse {
+  fromPartial(object: DeepPartial<ExampleResponse>): ExampleResponse {
     const message = createBaseExampleResponse();
+    message.exampleField = object.exampleField ?? "";
     return message;
   },
 };
@@ -141,6 +157,10 @@ export type DeepPartial<T> = T extends Builtin ? T
   : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
+}
 
 export interface MessageFns<T> {
   encode(message: T, writer?: BinaryWriter): BinaryWriter;
